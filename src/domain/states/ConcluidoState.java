@@ -4,19 +4,19 @@ package domain.states;
  * Estado representando um orçamento Concluído.
  * Não são permitidas transições adicionais.
  */
-public class ConcluidoState implements StatusOrcamento {
+public class ConcluidoState implements OrcamentoState {
     @Override
-    public StatusOrcamento aprovar() {
+    public OrcamentoState aprovar() {
         throw new IllegalStateException("Não é possível aprovar um orçamento que está Concluido.");
     }
 
     @Override
-    public StatusOrcamento rejeitar() {
+    public OrcamentoState rejeitar() {
         throw new IllegalStateException("Não é possível rejeitar um orçamento que está Concluido.");
     }
 
     @Override
-    public StatusOrcamento concluir() {
+    public OrcamentoState concluir() {
         throw new IllegalStateException("Não é possível concluir um orçamento que já está Concluido.");
     }
 

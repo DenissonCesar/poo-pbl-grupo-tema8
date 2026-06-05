@@ -1,6 +1,6 @@
 package domain.entities;
 
-import domain.states.StatusOrcamento;
+import domain.states.OrcamentoState;
 import domain.states.PendenteState;
 import domain.valueobjects.ItemDeOrcamento;
 import domain.valueobjects.ValorMonetario;
@@ -12,12 +12,12 @@ import java.util.UUID;
 
 /**
  * Entidade Orcamento.
- * Possui identificação única (ID), lista de itens e o status atual controlado pelo padrão State.
+ * Possui identificação única (ID), lista de itens e o status atual controlado pelo padrão State (OrcamentoState).
  */
 public class Orcamento {
     private final UUID id;
     private final List<ItemDeOrcamento> itens;
-    private StatusOrcamento status;
+    private OrcamentoState status;
 
     public Orcamento() {
         this.id = UUID.randomUUID();
@@ -33,7 +33,7 @@ public class Orcamento {
         return Collections.unmodifiableList(itens);
     }
 
-    public StatusOrcamento getStatus() {
+    public OrcamentoState getStatus() {
         return status;
     }
 

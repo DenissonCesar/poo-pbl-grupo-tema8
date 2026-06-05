@@ -4,19 +4,19 @@ package domain.states;
  * Estado representando um orçamento Pendente.
  * Transições válidas: para Aprovado ou Rejeitado.
  */
-public class PendenteState implements StatusOrcamento {
+public class PendenteState implements OrcamentoState {
     @Override
-    public StatusOrcamento aprovar() {
+    public OrcamentoState aprovar() {
         return new AprovadoState();
     }
 
     @Override
-    public StatusOrcamento rejeitar() {
+    public OrcamentoState rejeitar() {
         return new RejeitadoState();
     }
 
     @Override
-    public StatusOrcamento concluir() {
+    public OrcamentoState concluir() {
         throw new IllegalStateException("Não é possível concluir um orçamento que está Pendente.");
     }
 

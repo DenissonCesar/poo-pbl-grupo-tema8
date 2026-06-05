@@ -4,19 +4,19 @@ package domain.states;
  * Estado representando um orçamento Rejeitado.
  * Não são permitidas transições adicionais.
  */
-public class RejeitadoState implements StatusOrcamento {
+public class RejeitadoState implements OrcamentoState {
     @Override
-    public StatusOrcamento aprovar() {
+    public OrcamentoState aprovar() {
         throw new IllegalStateException("Não é possível aprovar um orçamento que está Rejeitado.");
     }
 
     @Override
-    public StatusOrcamento rejeitar() {
+    public OrcamentoState rejeitar() {
         throw new IllegalStateException("Não é possível rejeitar um orçamento que já está Rejeitado.");
     }
 
     @Override
-    public StatusOrcamento concluir() {
+    public OrcamentoState concluir() {
         throw new IllegalStateException("Não é possível concluir um orçamento que está Rejeitado.");
     }
 
