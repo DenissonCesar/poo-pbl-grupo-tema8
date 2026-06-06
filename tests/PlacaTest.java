@@ -1,32 +1,30 @@
-package domain.triagem;
-
 import domain.valueobjects.Placa;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Placa (Value Object)")
-class PlacaTest {
+public class PlacaTest {
 
-    // ─── Cenários de SUCESSO ───────────────────────────────────────────────
+    // ─── Cenários de SUCESSO ──────────────────────────────────────────────
 
     @Test
-    @DisplayName("deve criar placa no formato antigo válido (AAA-9999)")
-    void deveCriarPlacaFormatoAntigo() {
+    @DisplayName("deve criar placa válida no formato antigo (AAA-9999)")
+    void deveCriarPlacaValidaComFormatoAntigo() {
         Placa placa = new Placa("ABC-1234");
         assertEquals("ABC-1234", placa.getValor());
     }
 
     @Test
     @DisplayName("deve criar placa no formato Mercosul válido (AAA9A99)")
-    void deveCriarPlacaFormatoMercosul() {
+    void deveCriarPlacaValidaComFormatoMercosul() {
         Placa placa = new Placa("ABC1D23");
         assertEquals("ABC1D23", placa.getValor());
     }
 
+    // ─── Igualdade e HashCode ─────────────────────────────────────────────
+
     @Test
-    @DisplayName("duas placas com mesmo valor devem ser iguais (imutabilidade e equals)")
+    @DisplayName("duas placas com mesmo valor devem ser iguais (equals e hashCode)")
     void duasPlacasComMesmoValorDevemSerIguais() {
         Placa p1 = new Placa("ABC-1234");
         Placa p2 = new Placa("ABC-1234");
@@ -60,6 +58,9 @@ class PlacaTest {
     @DisplayName("deve lançar exceção para formato de placa inválido")
     void deveLancarExcecaoParaFormatoInvalido() {
         assertThrows(IllegalArgumentException.class, () -> new Placa("INVALIDA"));
+        assertThrows(IllegalArgumentException.class, () -> new Placa("AB-123"));
+        assertThrows(IllegalArgumentException.class, () -> new Placa("ABC1234"));
+        assertThrows(IllegalArgumentException.class, () -> new Placa("ABC12D3"));
     }
 
     @Test
