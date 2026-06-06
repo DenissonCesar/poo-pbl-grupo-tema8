@@ -1,41 +1,98 @@
+package domain.triagem;
+
 import domain.entities.Veiculo;
 import domain.valueobjects.Placa;
 import domain.valueobjects.Quilometragem;
-import java.util.UUID;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-public class VeiculoTest {
+@DisplayName("Veiculo (Entity)")
+class VeiculoTest {
+
+    private Placa placaValida;
+    private Quilometragem kmInicial;
+
+    @BeforeEach
+    void setUp() {
+        placaValida = new Placa("ABC-1234");
+        kmInicial   = new Quilometragem(50000);
+    }
+
+    // ─── Cenários de SUCESSO ───────────────────────────────────────────────
 
     @Test
-    public void deveCriarVeiculoComSucesso() {
-        UUID id = UUID.randomUUID();
-        Placa placa = new Placa("ABC-1234");
-        Quilometragem q = new Quilometragem(10000);
-        Veiculo veiculo = new Veiculo(id, placa, "Civic", "Honda", 2020, q);
+    @DisplayName("deve criar veículo com todos os campos válidos")
+    void deveCriarVeiculoValido() {
+        Veiculo v = new Veiculo("v-001", placaValida, "Fiat Uno", 2015, kmInicial);
 
-        assertEquals(id, veiculo.getId());
-        assertEquals(placa, veiculo.getPlaca());
-        assertEquals("Civic", veiculo.getModelo());
-        assertEquals("Honda", veiculo.getMarca());
-        assertEquals(2020, veiculo.getAnoFabricacao());
-        assertEquals(q, veiculo.getQuilometragem());
+        assertEquals("v-001",     v.getId());
+        assertEquals(placaValida, v.getPlaca());
+        assertEquals("Fiat Uno",  v.getModelo());
+        assertEquals(2015,        v.getAnoFabricacao());
+        assertEquals(kmInicial,   v.getQuilometragem());
     }
 
     @Test
-    public void deveAtualizarQuilometragemComSucesso() {
-        Veiculo veiculo = new Veiculo(UUID.randomUUID(), new Placa("ABC-1234"), "Civic", "Honda", 2020, new Quilometragem(10000));
-        
-        veiculo.atualizarQuilometragem(new Quilometragem(15000));
-        assertEquals(new Quilometragem(15000), veiculo.getQuilometragem());
+    @DisplayName("deve atualizar quilometragem para valor maior")
+    void deveAtualizarQuilometragemParaValorMaior() {
+        Veiculo v = new Veiculo("v-001", placaValida, "Fiat Uno", 2015, kmInicial);
+        Quilometragem novaKm = new Quilometragem(60000);
+
+        v.atualizarQuilometragem(novaKm);
+
+        assertEquals(novaKm, v.getQuilometragem());
     }
 
     @Test
-    public void deveLancarExcecaoAoAtualizarQuilometragemParaValorMenor() {
-        Veiculo veiculo = new Veiculo(UUID.randomUUID(), new Placa("ABC-1234"), "Civic", "Honda", 2020, new Quilometragem(10000));
-        
-        assertThrows(IllegalArgumentException.class, () -> {
-            veiculo.atualizarQuilometragem(new Quilometragem(9999));
-        });
+    @DisplayName("dois veículos com mesmo ID devem ser iguais (identidade)")
+    void doisVeiculosComMesmoIdDevemSerIguais() {
+        Veiculo v1 = new Veiculo("v-001", placaValida, "Fiat Uno", 2015, kmInicial);
+        Veiculo v2 = new Veiculo("v-001", new Placa("XYZ-9999"), "Honda Civic", 2020, new Quilometragem(0));
+
+        assertEquals(v1, v2); // identidade por ID, não por valor
+    }
+
+    // ─── Cenários de FALHA ────────────────────────────────────────────────
+
+    @Test
+    @DisplayName("deve lançar exceção para ID nulo")
+    void deveLancarExcecaoParaIdNulo() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Veiculo(null, placaValida, "Fiat Uno", 2015, kmInicial));
+    }
+
+    @Test
+    @DisplayName("deve lançar exceção para placa nula")
+    void deveLancarExcecaoParaPlacaNula() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Veiculo("v-001", null, "Fiat Uno", 2015, kmInicial));
+    }
+
+    @Test
+    @DisplayName("deve lançar exceção para modelo nulo ou vazio")
+    void deveLancarExcecaoParaModeloVazio() {
+        assertThrows(IllegalArgumentException.class,
+                () -> new Veiculo("v-001", placaValida, "", 2015, kmInicial));
+    }
+
+    @Test
+    @DisplayName("deve lançar exceção ao atualizar quilometragem para valor menor")
+    void deveLancarExcecaoAoAtualizarKmParaValorMenor() {
+        Veiculo v = new Veiculo("v-001", placaValida, "Fiat Uno", 2015, kmInicial);
+        Quilometragem kmMenor = new Quilometragem(40000);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> v.atualizarQuilometragem(kmMenor));
+    }
+
+    @Test
+    @DisplayName("deve lançar exceção para ano de fabricação inválido (futuro)")
+    void deveLancarExcecaoParaAnoFuturo() {
+        int anoFuturo = java.time.Year.now().getValue() + 1;
+        assertThrows(IllegalArgumentException.class,
+                () -> new Veiculo("v-001", placaValida, "Fiat Uno", anoFuturo, kmInicial));
     }
 }
