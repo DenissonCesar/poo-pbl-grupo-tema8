@@ -1,0 +1,47 @@
+#fluxo de automação que vai aparecer na aba "actions" do github 
+
+name: Java CI with Maven
+#define os "gatilhos" que vão disparar essa automação automaticamente
+
+on:
+  #dispara o CI sempre que alguém enviar código direto para as ramificações main ou develop
+
+  push:
+    branches: [ "main", "develop" ]
+
+  #dispara o CI sempre que alguém abrir um pull request pra integrar código na main ou develop
+
+  pull_request:
+    branches: [ "main", "develop" ]
+
+#define a lista de trabalhos (tarefas) que o github vai executar
+
+jobs:
+  #cria um trabalho chamado "build" (construção do projeto)
+
+  build:
+    # Escolhe o sistema operacional do servidor virtual do GitHub (uma máquina Linux atualizada)
+
+    runs-on: ubuntu-latest
+
+    #lista de passos ordenados que a máquina vai executar um por um
+
+    steps:
+    #passo 1: Copia o código do repositório do grupo para dentro dessa máquina virtual do github
+
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    #passo 2: instala o java na máquina virtual para conseguir compilar o projeto do grupo
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17' #define a versão do Java como 17 (padrão atual)
+        distribution: 'temurin' #escolhe o pacote oficial de distribuição do Java
+        cache: maven #ativa o cache para baixar as dependências do Java mais rápido nas próximas vezes
+
+    #passo 3: o comando principal que limpa o projeto, compila e roda todos os testes 
+    
+    - name: Build with Maven and Run Tests
+      run: mvn clean test

@@ -1,0 +1,16 @@
+{
+  "projectName": "Gerenciador de Oficina - PBL POO",
+  "theme": 8,
+  "language": "Java",
+  "version": "1.0.0",
+  "team": {
+    "role_A1": "Luis",
+    "role_A2": "Denisson",
+    "role_A3": "Samir",
+    "role_A4": "Guilherme"
+  },
+  "ci": {
+    "provider": "GitHub Actions",
+    "status": "configured"
+  }
+}
