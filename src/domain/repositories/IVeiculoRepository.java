@@ -4,10 +4,6 @@ import domain.entities.Veiculo;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Abstração do repositório de Veículos.
- * Definida em domain/ — implementações concretas em infrastructure/.
- */
 public interface IVeiculoRepository {
 
     /** Persiste um novo veículo. */

@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4834ef86-af9a-4aa9-9e7c-9295179f0a19" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/repositories/IOrdemDeServicoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/repositories/IOrdemDeServicoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/repositories/IVeiculoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/repositories/IVeiculoRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +34,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "a3-1",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/samue/OneDrive/Documentos/poo-pbl-grupo-tema8",
     "vue.rearranger.settings.migration": "true"

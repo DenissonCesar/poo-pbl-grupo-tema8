@@ -5,13 +5,6 @@ import domain.entities.StatusOrdem;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Abstração (contrato) do repositório de Ordens de Serviço.
- *
- * Definida na camada domain/ — a camada de domínio nunca depende
- * de detalhes de infraestrutura. As implementações concretas ficam
- * em infrastructure/repositories/.
- */
 public interface IOrdemDeServicoRepository {
 
     /** Persiste uma nova Ordem de Serviço. */
